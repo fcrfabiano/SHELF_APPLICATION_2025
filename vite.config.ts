@@ -2,6 +2,8 @@
 
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import path from 'path';
+import tailwindcss from '@tailwindcss/vite';
 
 // -- STATEMENTS
 
@@ -12,12 +14,12 @@ export default defineConfig(
             host: '::',
             port: 8080
         },
-        plugins: [ react() ],
+        plugins: [ react(), tailwindcss() ],
         resolve:
         {
             alias:
             {
-                '@': './src'
+                '@': path.resolve( __dirname, './src' )
             }
         }
     }
