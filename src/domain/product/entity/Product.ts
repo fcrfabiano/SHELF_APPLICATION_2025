@@ -21,22 +21,32 @@ export class Price
 {
     // -- CONSTRUCTOR
 
-    constructor(
-        private readonly value: number
+    private constructor(
+        private readonly _value: number
         )
     {
-        if ( value < 0 )
+        if ( _value < 0 )
         {
             throw new Error( 'Price cannot be negative' );
+        }
+
+        if ( !Number.isFinite( _value ) )
+        {
+            throw new Error( 'Invalid price value' );
+        }
+
+        if ( _value > 999999.99 )
+        {
+            throw new Error( 'Price exceeds maximum allowed value' );
         }
     }
 
     // -- INQUIRIES
 
-    getValue(
+    get value(
         ): number
     {
-        return this.value;
+        return this._value;
     }
 
     // ~~
@@ -51,5 +61,32 @@ export class Price
                 currency: 'BRL'
             }
             ).format( this.value );
+    }
+
+    // ~~
+
+    isGreaterThan(
+        otherPrice: Price
+        ): boolean
+    {
+        return this.value > otherPrice.value;
+    }
+
+    // ~~
+
+    isLessThan(
+        otherPrice: Price
+        ): boolean
+    {
+        return this.value < otherPrice.value;
+    }
+
+    // -- OPERATIONS
+
+    static create(
+        value: number
+        ): Price
+    {
+        return new Price( value );
     }
 }
