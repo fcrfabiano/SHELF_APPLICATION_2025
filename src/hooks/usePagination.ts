@@ -6,8 +6,8 @@ import { useState, useMemo } from 'react';
 
 interface PaginationHook<T> {
     currentPage: number;
-    totalPages: number;
-    currentItems: T[];
+    totalPageCount: number;
+    currentItemArray: T[];
     goToPage: ( page: number ) => void;
     goToNextPage: () => void;
     goToPreviousPage: () => void;
@@ -18,60 +18,61 @@ interface PaginationHook<T> {
 // -- FUNCTIONS
 
 export function usePagination<T>(
-    items: T[],
+    itemArray: T[],
     itemsPerPage: number = 6
     ): PaginationHook<T>
 {
     const [ currentPage, setCurrentPage ] = useState<number>( 1 );
 
-    const itemCount = items.length;
-    const totalPages = Math.ceil( itemCount / itemsPerPage );
-    const hasNextPage = currentPage < totalPages;
+    const itemCount = itemArray.length;
+    const totalPageCount = Math.ceil( itemCount / itemsPerPage );
+    const hasNextPage = currentPage < totalPageCount;
     const hasPreviousPage = currentPage > 1;
 
-    const currentItems = useMemo(
+    const currentItemArray = useMemo(
         () =>
         {
             const startIndex = ( currentPage - 1 ) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;
 
-            return items.slice( startIndex, endIndex );
+            return itemArray.slice( startIndex, endIndex );
         },
-        [ items, currentPage, itemsPerPage ]
+        [ itemArray, currentPage, itemsPerPage ]
         );
 
-    const goToPage =
-        ( page: number ) =>
+    function goToPage(
+        page: number
+        )
+    {
+        if ( page >= 1 && page <= totalPageCount )
         {
-            if ( page >= 1 && page <= totalPages )
-            {
-                setCurrentPage( page );
-            }
-        };
+            setCurrentPage( page );
+        }
+    };
 
-    const goToNextPage =
-        () =>
+    function goToNextPage(
+        )
+    {
+        if ( hasNextPage )
         {
-            if ( hasNextPage )
-            {
-                setCurrentPage( current => current + 1 );
-            }
-        };
+            setCurrentPage( current => current + 1 );
+        }
+    };
 
-    const goToPreviousPage =
-        () =>
+    function goToPreviousPage(
+        )
+    {
+        if ( hasPreviousPage )
         {
-            if ( hasPreviousPage )
-            {
-                setCurrentPage( current => current - 1 );
-            }
-        };
+            setCurrentPage( current => current - 1 );
+        }
+    };
 
     return (
         {
             currentPage,
-            totalPages,
-            currentItems,
+            totalPageCount,
+            currentItemArray,
             goToPage,
             goToNextPage,
             goToPreviousPage,
