@@ -2,6 +2,12 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './presentation/page/Home';
+import NotFound from './presentation/page/NotFound';
+import Offers from './presentation/page/Offers';
+import { TooltipProvider } from './components/ui/tooltip';
+import { Toaster as Sonner } from './components/ui/sonner';
+import { Toaster } from './components/ui/toaster';
 
 // -- CONSTANTS
 
@@ -14,32 +20,17 @@ export default function App(
 {
     return (
         <QueryClientProvider client={queryClient}>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/ofertas">Ofertas</a></li>
-            </ul>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={
-                        <h1 className="text-3xl font-bold underline text-red-500">
-                            Hello world!
-                        </h1>
-                    }
-                    />
-                    <Route path="/ofertas" element={
-                        <h1 className="text-3xl font-bold underline text-red-500">
-                            Ofertas
-                        </h1>
-                    }
-                    />
-                    <Route path="*" element={
-                        <h1 className="text-3xl font-bold underline text-red-500">
-                            Página não encontrada
-                        </h1>
-                    }
-                    />
-                </Routes>
-            </BrowserRouter>
+            <TooltipProvider>
+                <Toaster />
+                <Sonner />
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={ <Home/> } />
+                        <Route path="/ofertas" element={ <Offers/> }/>
+                        <Route path="*" element={ <NotFound /> } />
+                    </Routes>
+                </BrowserRouter>
+            </TooltipProvider>
         </QueryClientProvider>
         );
 }
