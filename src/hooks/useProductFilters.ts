@@ -29,7 +29,8 @@ interface ProductFiltersHook {
 // -- FUNCTIONS
 
 export function useProductFilters(
-    productArray: Product[]
+    productArray: Product[],
+    onFiltersChange?: () => void
     ): ProductFiltersHook
 {
     const [ filters, setFilters ] = useState<ProductFilters>(
@@ -98,6 +99,7 @@ export function useProductFilters(
         )
     {
         setFilters( previousFilters => ( { ...previousFilters, category } ) );
+        onFiltersChange?.();
     };
 
     function setMinimumPrice(
@@ -105,6 +107,7 @@ export function useProductFilters(
         )
     {
         setFilters( previousFilters => ( { ...previousFilters, minimumPrice } ) );
+        onFiltersChange?.();
     };
 
     function setMaximumPrice(
@@ -112,6 +115,7 @@ export function useProductFilters(
         )
     {
         setFilters( previousFilters => ( { ...previousFilters, maximumPrice } ) );
+        onFiltersChange?.();
     };
 
     function resetFilters(
@@ -124,6 +128,7 @@ export function useProductFilters(
                 maximumPrice: MAXIMUM_PRICE
             }
             );
+        onFiltersChange?.();
     };
 
     return (

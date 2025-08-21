@@ -42,7 +42,7 @@ export function OffersCatalog(
         setMaximumPrice,
         setMinimumPrice,
         resetFilters
-    } = useProductFilters( productArray );
+    } = useProductFilters( productArray, () => goToPage( 1 ) );
     const { 
         currentItemArray: currentProductArray, 
         currentPage, 
