@@ -19,6 +19,9 @@ import {
     PaginationPrevious,
     PaginationEllipsis
 } from '@/components/ui/pagination';
+import { useProductFilters } from '@/hooks/useProductFilters';
+import { ProductFilters } from './ProductFilters';
+import { Product } from '@/domain/product/entity/Product';
 
 // -- FUNCTIONS
 
@@ -30,16 +33,26 @@ export function OffersCatalog(
     const { productArray, isLoading, errorMessage } = useOfferViewModel( offerProductArrayUseCase );
     const { toast } = useToast();
     const { isFavorite, toggleFavorite } = useFavoriteProduct();
+    const {
+        filteredProductArray,
+        filters,
+        categoryArray,
+        priceRange,
+        setCategory,
+        setMaximumPrice,
+        setMinimumPrice,
+        resetFilters
+    } = useProductFilters( productArray );
     const { 
-        currentItems: currentProducts, 
+        currentItemArray: currentProductArray, 
         currentPage, 
-        totalPages, 
+        totalPageCount, 
         goToPage, 
         goToNextPage, 
         goToPreviousPage, 
         hasNextPage, 
         hasPreviousPage 
-    } = usePagination( productArray, 6 );
+    } = usePagination<Product>( filteredProductArray, 6 );
 
     function handlePurchaseClick(
         productId: number
@@ -71,14 +84,14 @@ export function OffersCatalog(
     function renderPaginationNumbers(
         )
     {
-        const pages = [];
-        const maxVisiblePages = 5;
-        
-        if ( totalPages <= maxVisiblePages )
+        const pageArray = [];
+        const maximumVisiblePageCount = 5;
+
+        if ( totalPageCount <= maximumVisiblePageCount )
         {
-            for ( let index = 1; index <= totalPages; index++ )
+            for ( let index = 1; index <= totalPageCount; index++ )
             {
-                pages.push(
+                pageArray.push(
                     <PaginationItem key={ index }>
                         <PaginationLink
                             onClick={ () => goToPage( index ) }
@@ -93,7 +106,7 @@ export function OffersCatalog(
         }
         else
         {
-            pages.push(
+            pageArray.push(
                 <PaginationItem key={ 1 }>
                     <PaginationLink
                         onClick={ () => goToPage( 1 ) }
@@ -107,7 +120,7 @@ export function OffersCatalog(
 
             if ( currentPage > 3 )
             {
-                pages.push(
+                pageArray.push(
                     <PaginationItem key="ellipsis1">
                         <PaginationEllipsis />
                     </PaginationItem>
@@ -115,11 +128,11 @@ export function OffersCatalog(
             }
 
             const start = Math.max( 2, currentPage - 1 );
-            const end = Math.min( totalPages - 1, currentPage + 1 );
+            const end = Math.min( totalPageCount - 1, currentPage + 1 );
             
             for ( let index = start; index <= end; index++ )
             {
-                pages.push(
+                pageArray.push(
                     <PaginationItem key={ index }>
                         <PaginationLink
                             onClick={ () => goToPage( index ) }
@@ -132,32 +145,32 @@ export function OffersCatalog(
                     );
             }
 
-            if ( currentPage < totalPages - 2 )
+            if ( currentPage < totalPageCount - 2 )
             {
-                pages.push(
+                pageArray.push(
                     <PaginationItem key="ellipsis2">
                         <PaginationEllipsis />
                     </PaginationItem>
                     );
             }
 
-            if ( totalPages > 1 )
+            if ( totalPageCount > 1 )
             {
-                pages.push(
-                    <PaginationItem key={ totalPages }>
+                pageArray.push(
+                    <PaginationItem key={ totalPageCount }>
                         <PaginationLink
-                            onClick={ () => goToPage( totalPages ) }
-                            isActive={ currentPage === totalPages }
+                            onClick={ () => goToPage( totalPageCount ) }
+                            isActive={ currentPage === totalPageCount }
                             className="cursor-pointer"
                         >
-                            { totalPages }
+                            { totalPageCount }
                         </PaginationLink>
                     </PaginationItem>
                     );
             }
         }
 
-        return pages;
+        return pageArray;
     };
 
     return (
@@ -175,6 +188,27 @@ export function OffersCatalog(
                         Aproveite nossa seleção especial de produtos com os melhores preços do mercado
                     </p>
                 </div>
+
+                {
+                    !isLoading
+                         && !errorMessage
+                         && productArray.length > 0
+                         && (
+                            <div className="max-w-6xl mx-auto mb-8">
+                                <ProductFilters
+                                    categoryArray={ categoryArray }
+                                    selectedCategory={ filters.category }
+                                    minimumPrice={ filters.minimumPrice }
+                                    maximumPrice={ filters.maximumPrice }
+                                    priceRange={ priceRange }
+                                    onCategoryChange={ setCategory }
+                                    onMinimumPriceChange={ setMinimumPrice }
+                                    onMaximumPriceChange={ setMaximumPrice }
+                                    onResetFilters={resetFilters}
+                                />
+                            </div>
+                            )
+                }
 
                 {
                     errorMessage && (
@@ -209,12 +243,12 @@ export function OffersCatalog(
                 {
                     !isLoading
                         && !errorMessage
-                        && currentProducts.length > 0
+                        && currentProductArray.length > 0
                         && (
                             <>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-8">
                                     {
-                                        currentProducts.map(
+                                        currentProductArray.map(
                                             ( product ) =>
                                             (
                                                 <ProductCard
@@ -230,7 +264,7 @@ export function OffersCatalog(
                                 </div>
 
                                 {
-                                    totalPages > 1 && (
+                                    totalPageCount > 1 && (
                                         <Pagination className="mt-8">
                                             <PaginationContent>
                                                 <PaginationItem>
