@@ -182,7 +182,7 @@ export function OffersCatalog(
             <section className="container mx-auto px-4 pb-16">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                        Ofertas da Semana
+                        Super ofertas
                     </h2>
                     <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                         Aproveite nossa seleção especial de produtos com os melhores preços do mercado

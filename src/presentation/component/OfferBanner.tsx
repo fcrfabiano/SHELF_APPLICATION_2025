@@ -9,7 +9,7 @@ export function OfferBanner(
             <div className="relative h-full flex items-center justify-center text-center px-4">
                 <div className="max-w-4xl mx-auto">
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-                        Super Ofertas
+                        Ofertas da Semana
                     </h1>
                     <p className="text-xl md:text-2xl text-white/90 mb-6">
                         Descontos imperdíveis nos melhores produtos
