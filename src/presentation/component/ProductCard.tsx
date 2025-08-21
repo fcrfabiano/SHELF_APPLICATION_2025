@@ -27,7 +27,7 @@ export function ProductCard(
     }: ProductCardProps
     )
 {
-    const price = new Price( product.price );
+    const price = Price.create( product.price );
 
     function handlePurchaseClick(
         )

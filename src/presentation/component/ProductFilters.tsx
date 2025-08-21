@@ -149,8 +149,8 @@ export function ProductFilters(
                         </div>
                     </div>
                     <div className="flex justify-between text-sm text-muted-foreground">
-                        <span>{ new Price( priceRange.minimum ).getFormattedValue() }</span>
-                        <span>{ new Price( priceRange.maximum ).getFormattedValue() }</span>
+                        <span>{ Price.create( priceRange.minimum ).getFormattedValue() }</span>
+                        <span>{ Price.create( priceRange.maximum ).getFormattedValue() }</span>
                     </div>
                 </div>
             </CardContent>
