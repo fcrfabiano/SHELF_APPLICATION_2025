@@ -3,6 +3,10 @@
 import { useState, useMemo } from 'react';
 import { Product } from '@/domain/product/entity/Product';
 
+// -- CONSTANTS
+
+const MAXIMUM_PRICE = 999.99;
+
 // -- TYPES
 
 export interface ProductFilters {
@@ -32,7 +36,7 @@ export function useProductFilters(
         {
             category: 'all',
             minimumPrice: 0,
-            maximumPrice: Number.MAX_SAFE_INTEGER
+            maximumPrice: MAXIMUM_PRICE
         }
         );
 
@@ -56,7 +60,7 @@ export function useProductFilters(
                 return (
                     {
                         minimum: 0,
-                        maximum: 1000
+                        maximum: MAXIMUM_PRICE
                     }
                     );
             }
@@ -117,7 +121,7 @@ export function useProductFilters(
             {
                 category: 'all',
                 minimumPrice: 0,
-                maximumPrice: Number.MAX_SAFE_INTEGER
+                maximumPrice: MAXIMUM_PRICE
             }
             );
     };
