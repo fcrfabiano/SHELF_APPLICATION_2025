@@ -3,10 +3,6 @@
 import { Product } from '../../domain/product/entity/Product';
 import { ProductRepository } from '../../domain/product/repository/ProductRepository';
 
-// -- CONSTANTS
-
-const OFFER_PRODUCT_COUNT = 6;
-
 // -- TYPES
 
 export class GetOfferProductArrayUseCase
@@ -28,9 +24,7 @@ export class GetOfferProductArrayUseCase
         {
             const allProductArray = await this.productRepository.getProductArray();
             
-            const offerProductArray = allProductArray.slice( 0, OFFER_PRODUCT_COUNT );
-            
-            return offerProductArray;
+            return allProductArray;
         }
         catch ( error )
         {
