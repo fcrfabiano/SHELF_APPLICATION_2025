@@ -126,7 +126,7 @@ export function ProductFilters(
                             <Input
                                 id="min-price"
                                 type="number"
-                                value={minimumPrice}
+                                value={ minimumPrice }
                                 onChange={ ( { target } ) => onMinimumPriceChange( Number( target.value ) ) }
                                 min={ priceRange.minimum }
                                 max={ maximumPrice }
