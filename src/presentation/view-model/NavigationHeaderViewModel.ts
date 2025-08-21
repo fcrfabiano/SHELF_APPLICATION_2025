@@ -10,7 +10,7 @@ export interface NavigationItem {
     isActive: boolean;
 }
 
-// -- VIEWMODEL
+// -- FUNCTIONS
 
 export function useNavigationHeaderViewModel(
     )

@@ -78,7 +78,7 @@ const TESTIMONIALS_DATA: TestimonialItem[] =
     }
 ];
 
-// -- VIEWMODEL
+// -- FUNCTIONS
 
 export function useHomeViewModel(
     )
@@ -102,12 +102,14 @@ export function useHomeViewModel(
         setEmailNewsletter( '' );
     };
 
-    return {
-        statisticArray,
-        featureArray,
-        testimonialArray,
-        emailNewsletter,
-        handleEmailChange,
-        handleNewsletterSubmit
-    };
+    return (
+        {
+            statisticArray,
+            featureArray,
+            testimonialArray,
+            emailNewsletter,
+            handleEmailChange,
+            handleNewsletterSubmit
+        }
+        );
 } 
