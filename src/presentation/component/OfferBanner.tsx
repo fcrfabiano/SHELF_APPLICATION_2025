@@ -21,7 +21,7 @@ export function OfferBanner(
                             </span>
                         </div>
                         <div className="bg-accent/90 backdrop-blur-sm rounded-full px-6 py-2">
-                            <span className="text-white font-semibold">
+                            <span className="text-primary font-semibold">
                                 🔥 Até 70% OFF
                             </span>
                         </div>
