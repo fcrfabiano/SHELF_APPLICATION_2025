@@ -18,7 +18,7 @@ function Card(
                     'bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm',
                     className
                     )
-            }
+                }
             { ...props }
         />
         );
@@ -40,8 +40,8 @@ function CardHeader(
                 getClassNames(
                     '@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6',
                     className
-                )
-            }
+                    )
+                }
             { ...props }
         />
         );
@@ -61,7 +61,7 @@ function CardTitle(
             data-slot="card-title"
             className={
                 getClassNames( 'leading-none font-semibold', className )
-            }
+                }
             { ...props }
         />
         );
@@ -81,7 +81,7 @@ function CardDescription(
             data-slot="card-description"
             className={
                 getClassNames( 'text-muted-foreground text-sm', className )
-            }
+                }
             { ...props }
         />
         );
@@ -104,7 +104,7 @@ function CardAction(
                     'col-start-2 row-span-2 row-start-1 self-start justify-self-end',
                     className
                     )
-            }
+                }
             { ...props }
         />
         );
@@ -153,5 +153,5 @@ export {
     CardTitle,
     CardAction,
     CardDescription,
-    CardContent,
+    CardContent
 }
