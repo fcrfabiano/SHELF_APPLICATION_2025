@@ -17,7 +17,7 @@ export interface ProductRating {
 
 // ~~
 
-export class price
+export class Price
 {
     // -- CONSTRUCTOR
 
