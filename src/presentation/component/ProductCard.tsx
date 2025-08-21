@@ -63,7 +63,7 @@ export function ProductCard(
     };
 
     return (
-        <Card className="product-card overflow-hidden group relative">
+        <Card className="product-card overflow-hidden group relative p-0">
             <button
                 onClick={ handleFavoriteClick }
                 className="absolute top-2 right-2 z-10 p-2 rounded-full bg-background/80 hover:bg-background transition-colors"
